@@ -32,7 +32,7 @@ function Dashboard() {
           <div className="eyebrow mb-6">Sales — last 7 days</div>
           <div className="flex h-48 items-end gap-3">
             {perDay.map((v, i) => (
-              <div key={i} className="flex flex-1 flex-col items-center gap-2">
+              <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-2">
                 <div className="w-full bg-gold transition-all" style={{ height: `${(v / max) * 100}%`, minHeight: 2 }} title={formatPrice(v)} />
                 <span className="text-[10px] text-muted-foreground">{days[i]?.slice(5)}</span>
               </div>
