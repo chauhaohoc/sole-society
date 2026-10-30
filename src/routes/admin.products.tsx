@@ -45,15 +45,15 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
     if (!files) return;
     // Demo: images are stored as data URLs. With the backend connected these upload to file storage.
     Array.from(files).forEach((f) => {
-      if (!f.type.startsWith("image/") || f.size > 2_000_000) return toast.error(`${f.name}: images up to 2MB only`);
+      if (!f.type.startsWith("image/") || f.size > 2_000_000) { toast.error(`${f.name}: images up to 2MB only`); return; }
       const r = new FileReader();
       r.onload = () => setP((cur) => ({ ...cur, images: [...cur.images, r.result as string] }));
       r.readAsDataURL(f);
     });
   };
   const save = () => {
-    if (!p.name.trim() || !p.brand.trim() || p.price <= 0) return toast.error("Name, brand and price are required");
-    if (!p.images.length) return toast.error("Add at least one image");
+    if (!p.name.trim() || !p.brand.trim() || p.price <= 0) { toast.error("Name, brand and price are required"); return; }
+    if (!p.images.length) { toast.error("Add at least one image"); return; }
     saveProduct({ ...p, slug: p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") + "-" + p.id.slice(-4) });
     toast.success("Product saved"); onClose();
   };

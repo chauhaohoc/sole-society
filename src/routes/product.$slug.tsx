@@ -29,11 +29,11 @@ function ProductPage() {
   const [qty, setQty] = useState(1);
 
   if (!p) return <div className="py-32 text-center">{ready ? <>Product not found. <Link to="/shop" className="underline">Back to shop</Link></> : "Loading…"}</div>;
-  const chosenColor = color || p.colors[0]?.name;
+  const chosenColor = color || p.colors[0]?.name || "";
   const avail = size ? p.stock[size] ?? 0 : 0;
 
   const add = (go: boolean) => {
-    if (!size) return toast.error("Please select a size");
+    if (!size) { toast.error("Please select a size"); return; }
     addToCart({ productId: p.id, size, color: chosenColor, qty: Math.min(qty, avail) });
     toast.success(`${p.name} added to bag`);
     if (go) nav({ to: "/cart" });

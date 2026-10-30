@@ -34,7 +34,7 @@ function Dashboard() {
             {perDay.map((v, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-2">
                 <div className="w-full bg-gold transition-all" style={{ height: `${(v / max) * 100}%`, minHeight: 2 }} title={formatPrice(v)} />
-                <span className="text-[10px] text-muted-foreground">{days[i].slice(5)}</span>
+                <span className="text-[10px] text-muted-foreground">{days[i]?.slice(5)}</span>
               </div>
             ))}
           </div>

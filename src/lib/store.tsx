@@ -43,14 +43,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     addToCart: (i) => set((s) => {
       const idx = s.cart.findIndex((c) => c.productId === i.productId && c.size === i.size && c.color === i.color);
       if (idx < 0) return { cart: [...s.cart, i] };
-      const cart = [...s.cart]; cart[idx] = { ...cart[idx], qty: cart[idx].qty + i.qty }; return { cart };
+      const cart = s.cart.map((c, k) => (k === idx ? { ...c, qty: c.qty + i.qty } : c)); return { cart };
     }),
     updateQty: (idx, qty) => set((s) => ({ cart: s.cart.map((c, i) => (i === idx ? { ...c, qty: Math.max(1, qty) } : c)) })),
     removeFromCart: (idx) => set((s) => ({ cart: s.cart.filter((_, i) => i !== idx) })),
     placeOrder: (customer) => {
       const items = state.cart.map((c) => {
         const p = state.products.find((x) => x.id === c.productId)!;
-        return { ...c, name: p.name, price: p.price, image: p.images[0] };
+        return { ...c, name: p.name, price: p.price, image: p.images[0] ?? "" };
       });
       const subtotal = items.reduce((a, i) => a + i.price * i.qty, 0);
       const shipping = shippingFor(subtotal);

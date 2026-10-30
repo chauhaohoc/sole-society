@@ -20,7 +20,7 @@ export type OrderStatus = "pending" | "confirmed" | "shipping" | "delivered" | "
 export interface Order {
   id: string;
   createdAt: string;
-  customer: { name: string; phone: string; address: string; note?: string };
+  customer: { name: string; phone: string; address: string; note?: string | undefined };
   items: (CartItem & { name: string; price: number; image: string })[];
   subtotal: number;
   shipping: number;
