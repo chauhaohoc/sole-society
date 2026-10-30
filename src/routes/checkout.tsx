@@ -4,7 +4,7 @@ import { z } from "zod";
 import { Banknote } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { shippingFor } from "@/lib/sample-data";
-import { Summary } from "./cart";
+import { Summary } from "@/components/summary";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
